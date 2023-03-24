@@ -1,0 +1,17 @@
+<script>
+    let entrada = 1;
+    let acumulador  = 0;
+    let operacao = "";
+        while(operacao != "s") {
+            entrada = parseFloat(prompt("entre com um numero."))
+            operacao = prompt("entre com a operacao(+,*,/,-,**) ou s para sair");
+
+            if (operacao == '+') {acumulador += entrada;}
+    else if (operacao == '-') {acumulador -= entrada;}
+    else if (operacao == '/') {acumulador /= entrada;}
+    else if (operacao == '*') {acumulador *= entrada;}
+    else if (operacao == '**') {acumulador **= entrada;}
+
+            alert("acumulador vale " + acumulador);
+        }
+    </script>
