@@ -1,0 +1,18 @@
+<script>
+    let g = 0
+
+    while (g < 10) {alert('neste momento,g é igual a ' + g);
+    g++;
+    }
+
+    alert('saiu do primeiro loop');
+
+    let entrada = '';
+
+    while(entrada != 'f') {
+        entrada = prompt('tecle f para sair do loop');
+    }
+
+    alert('saiu do loop')
+
+    </script>
