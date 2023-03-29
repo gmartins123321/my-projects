@@ -1,0 +1,17 @@
+<script>
+let n1;
+let n2;
+
+while(true) {
+     n1 = parseInt(prompt("entre com o numero 1"));
+    n2 = parseInt(prompt("entre com o numero 2"));
+    if (n1 == 0) {
+        if (n2 == 0){
+            break
+        }
+    }
+alert("os numeros sao " + n1 + " e " + n2);
+}
+    alert ('estou saindo...');
+
+</script>
