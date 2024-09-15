@@ -1,0 +1,70 @@
+// app.js (Node.js)
+
+const express = require('express');
+const mongoose = require('mongoose');
+const app = express();
+
+mongoose.connect('mongodb://localhost/todoApp', { useNewUrlParser: true, useUnifiedTopology: true });
+
+const Task = mongoose.model('Task', { description: String });
+
+app.get('/tasks', async (req, res) => {
+  const tasks = await Task.find();
+  res.json(tasks);
+});
+
+app.post('/tasks', async (req, res) => {
+  const { description } = req.body;
+  const newTask = new Task({ description });
+  await newTask.save();
+  res.status(201).json(newTask);
+});
+
+app.listen(3000, () => {
+  console.log('Server is running on port 3000');
+});
+// App.js (React)
+
+import React, { useState, useEffect } from 'react';
+
+function App() {
+  const [tasks, setTasks] = useState([]);
+  const [newTask, setNewTask] = useState('');
+
+  useEffect(() => {
+    fetch('/tasks')
+      .then(res => res.json())
+      .then(data => setTasks(data));
+  }, []);
+
+  const handleAddTask = async () => {
+    const response = await fetch('/tasks', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ description: newTask }),
+    });
+    const data = await response.json();
+    setTasks([...tasks, data]);
+    setNewTask('');
+  };
+
+  return (
+    <div>
+      <input
+        type="text"
+        value={newTask}
+        onChange={(e) => setNewTask(e.target.value)}
+      />
+      <button onClick={handleAddTask}>Add Task</button>
+      <ul>
+        {tasks.map(task => (
+          <li key={task._id}>{task.description}</li>
+        ))}
+      </ul>
+    </div>
+  );
+}
+
+export default App;
